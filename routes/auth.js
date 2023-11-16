@@ -19,7 +19,7 @@ router.post('/login',
                 User.findOne({ email: value })
                 .then(user => {
                     if (!user) {
-                        return Promise.reject('No user exists with that email.')
+                        return Promise.reject('No user exists with that email.').catch(err => console.log(err))
                     }
                 })
             }),
@@ -38,7 +38,7 @@ router.post('/signup',
                 return User.findOne({ email: value })
                     .then(userDoc => {
                     if (userDoc) {
-                        return Promise.reject('E-Mail exists already, please pick a different one.')
+                        return Promise.reject('E-Mail exists already, please pick a different one.').catch(err => console.log(err))
                     }})
             }),
         body(
