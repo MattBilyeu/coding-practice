@@ -15,6 +15,8 @@ router.post('/login',
         body('email')
             .isEmail()
             .withMessage('Please enter a valid email')
+            .normalizeEmail()
+            .trim()
             .custom((value) => {
                 User.findOne({ email: value })
                 .then(user => {
@@ -40,13 +42,15 @@ router.post('/signup',
                     if (userDoc) {
                         return Promise.reject('E-Mail exists already, please pick a different one.').catch(err => console.log(err))
                     }})
-            }),
+            })
+            .normalizeEmail(),
         body(
                 'password', 
                 'Please enter a password with only numbers and text and at least 5 characters'
             )
             .isLength({min: 5})
-            .isAlphanumeric(),
+            .isAlphanumeric()
+            .trim(),
         body('confirmPassword')
             .custom((value, {req}) => {
                 if (value !== req.body.password) {
