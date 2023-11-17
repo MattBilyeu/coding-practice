@@ -19,9 +19,9 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render('admin/edit-product', {
+    return res.status(422).render('admin/add-product', {
       pageTitle: 'Add Product',
-      path: '/admin/edit-product',
+      path: '/admin/add-product',
       editing: false,
       hasError: true,
       product: {
