@@ -1,3 +1,5 @@
+const path = require('path');
+
 const Product = require('../models/product');
 const { validationResult } = require('express-validator');
 
@@ -41,14 +43,14 @@ exports.postAddProduct = (req, res, next) => {
       hasError: true,
       product: {
         title: title,
-        imageUrl: image,
         price: price,
         description: description,
         errorMessage: errors.array()[0].msg,
         validationErrors: errors.array()
       }
     });
-  }
+  };
+  const imageUrl = '/images/' + image.filename;
   const product = new Product({
     title: title,
     price: price,
@@ -102,7 +104,7 @@ exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
-  const updatedImageUrl = req.body.imageUrl;
+  const image = req.file;
   const updatedDesc = req.body.description;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -113,7 +115,6 @@ exports.postEditProduct = (req, res, next) => {
       hasError: true,
       product: {
         title: updatedTitle,
-        imageUrl: updatedImageUrl,
         price: updatedPrice,
         description: updatedDesc,
         errorMessage: errors.array()[0].msg,
@@ -130,7 +131,9 @@ exports.postEditProduct = (req, res, next) => {
       product.title = updatedTitle;
       product.price = updatedPrice;
       product.description = updatedDesc;
-      product.imageUrl = updatedImageUrl;
+      if (image) {
+        product.imageUrl = image.path;
+      }
       return product.save()    
         .then(result => {
           console.log('UPDATED PRODUCT!');
@@ -149,7 +152,6 @@ exports.getProducts = (req, res, next) => {
     // .select('title price -_id')
     // .populate('userId', 'name')
     .then(products => {
-      console.log(products);
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
