@@ -14,17 +14,7 @@ router.post('/login',
     [  
         body('email')
             .isEmail()
-            .withMessage('Please enter a valid email')
-            .normalizeEmail()
-            .trim()
-            .custom((value) => {
-                User.findOne({ email: value })
-                .then(user => {
-                    if (!user) {
-                        return Promise.reject('No user exists with that email.').catch(err => console.log(err))
-                    }
-                })
-            }),
+            .withMessage('Please enter a valid email'),
         body('password', 'Please enter an email that is at least 5 characters and has only text and numbers')
             .isLength({min: 5})
             .isAlphanumeric(),
