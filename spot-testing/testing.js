@@ -1,26 +1,24 @@
-var createCounter = function(init) {
-    let robot = {
-        init: init,
-        startingValue: init,
-        increment: function() {
-            init++;
-            return init
-        },
-        decrement: function() {
-            init--;
-            return init
-        },
-        reset: function() {
-            init = startingValue;
-            return init;
-        }
-    };
-    return robot
-};
+// function squareDigits(num){
+//     let result = '';
+//     numberArray = Array.from(String(num), Number)
+//     numberArray.forEach(number => {
+//         result = result.concat(number * number)
+//     })
+//     return +result;
+// }
 
-const testBot = createCounter(5);
 
-console.log(testBot.increment());
-console.log(testBot.increment());
-console.log(testBot.reset());
-console.log(testBot.increment());
+function isIsogram(str){
+    const stringArray = str.toLowerCase().split('');
+    const newArray = [];
+    for (let i = 0; i < stringArray.length; i++) {
+      if (newArray.findIndex(char => char === stringArray[i]) !== -1) {
+        return false
+      } else {
+        newArray.push(stringArray[i])
+      }
+    }
+    return true
+  }
+
+console.log(isIsogram('moose'))
