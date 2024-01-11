@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Toggle odd/even</button>
+      <br><br>
+      <div *ngIf="onlyOdd">
+        <h1>Odd Numbers</h1>
+        <ol class="list-group">
+          <li class="list-group-item" *ngFor="let odd of oddNumbers" [ngClass]="{odd: odd % 2 !== 0}">
+            {{ odd }}
+          </li>
+        </ol>
+      </div>
+      <div *ngIf="!onlyOdd">
+        <h1>Even Numbers</h1>
+        <ol class="list-group">
+          <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{even: even % 2 === 0}">
+            {{ even }}
+          </li>
+        </ol>
+      </div>
+    </div>
+    <p appBasicHighlight>Style me with basic directive!</p>
+    <p appBetterHighlight>Style me with a better directive!</p>
+  </div>
+</div>
