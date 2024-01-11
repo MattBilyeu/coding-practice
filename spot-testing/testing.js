@@ -1,24 +1,14 @@
-// function squareDigits(num){
-//     let result = '';
-//     numberArray = Array.from(String(num), Number)
-//     numberArray.forEach(number => {
-//         result = result.concat(number * number)
-//     })
-//     return +result;
-// }
-
-
-function isIsogram(str){
-    const stringArray = str.toLowerCase().split('');
-    const newArray = [];
-    for (let i = 0; i < stringArray.length; i++) {
-      if (newArray.findIndex(char => char === stringArray[i]) !== -1) {
-        return false
-      } else {
-        newArray.push(stringArray[i])
-      }
+function getCount(str) {
+  let vowelCount = 0;
+  let stringArray = str.split('');
+  let vowels = ['a', 'e', 'i', 'o', 'u'];
+  for (let i = 0; i < stringArray.length; i++) {
+    const foundInVowels = vowels.findIndex(letter => letter === stringArray[i].toLowerCase())
+    if (foundInVowels !== -1) {
+      vowelCount++
     }
-    return true
   }
+  return vowelCount;
+}
 
-console.log(isIsogram('moose'))
+//Logging time spent coding in Codewars
