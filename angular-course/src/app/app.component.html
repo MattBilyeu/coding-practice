@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Toggle odd/even</button>
       <br><br>
-      <div *ngIf="onlyOdd">
+      <!-- <div *ngIf="onlyOdd">
         <h1>Odd Numbers</h1>
         <ol class="list-group">
           <li class="list-group-item" *ngFor="let odd of oddNumbers" [ngClass]="{odd: odd % 2 !== 0}">
@@ -18,9 +18,23 @@
             {{ even }}
           </li>
         </ol>
+      </div> -->
+      <div *appUnless="onlyOdd">
+        <h1>Odd Numbers</h1>
+        <ol class="list-group">
+          <li class="list-group-item" *ngFor="let odd of oddNumbers" [ngClass]="{odd: odd % 2 !== 0}">
+            {{ odd }}
+          </li>
+        </ol>
       </div>
     </div>
     <p appBasicHighlight>Style me with basic directive!</p>
-    <p appBetterHighlight>Style me with a better directive!</p>
+    <p appBetterHighlight [primaryColor]="'red'" [secondaryColor]="'darkgrey'">Style me with a better directive!</p>
+    <div [ngSwitch]="value">
+      <p *ngSwitchCase="5">Value is 5</p>
+      <p *ngSwitchCase="10">Value is 10</p>
+      <p *ngSwitchCase="100">Value is 100</p>
+      <p *ngSwitchDefault>Value is Default</p>
+    </div>
   </div>
 </div>
