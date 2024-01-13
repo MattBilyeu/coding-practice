@@ -1,25 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'angular-course';
-  evenNumbers = [2, 4];
-  oddNumbers = [1, 3, 5];
-  onlyOdd = true;
-  value = 10;
-
-  ngOnInit() {
-    console.log('Initialized')
-    const array = [5, 10, 100];
-    setInterval(()=> {
-      let i = Math.floor(Math.random()*3);
-      console.log('Interval: ', array[i])
-      this.value = array[i]
-    }, 2000)
+export class AppComponent {
+  servers = [
+    {
+      instanceType: 'medium',
+      name: 'Production Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'large',
+      name: 'User Database',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Development Server',
+      status: 'offline',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Testing Environment Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    }
+  ];
+  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+    return {
+      'list-group-item-success': server.status === 'stable',
+      'list-group-item-warning': server.status === 'offline',
+      'list-group-item-danger': server.status === 'critical'
+    };
   }
 }
