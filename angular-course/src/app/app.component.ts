@@ -1,59 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators'
+import { Post } from './post.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  appStatus = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('stable');
-    }, 2000)
-  });
-  servers = [
-    {
-      instanceType: 'medium',
-      name: 'Production Server',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'large',
-      name: 'User Database',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Development Server',
-      status: 'offline',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Testing Environment Server',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    }
-  ];
-  filteredStatus: string = ''
-  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
-    return {
-      'list-group-item-success': server.status === 'stable',
-      'list-group-item-warning': server.status === 'offline',
-      'list-group-item-danger': server.status === 'critical'
-    };
+export class AppComponent implements OnInit {
+  loadedPosts: Post[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.fetchPosts()
   }
-  onAddServer() {
-    this.servers.push({
-      instanceType: 'small',
-      name: 'New Server',
-      status: 'stable',
-      started: new Date(1/15/2017)
+
+  onCreatePost(postData: Post) {
+    this.http.post<{name: string}>(
+      'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json', 
+      postData
+    ).subscribe()
+  }
+
+  onFetchPosts() {
+    // Send Http request
+  }
+
+  onClearPosts() {
+    // Send Http request
+  }
+
+  private fetchPosts() {
+    this.http.get<{[key: string]: Post}>('https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json')
+    .pipe(map(responseData => {
+      const postsArray: Post[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          postsArray.push({...responseData[key], id: key})
+        }
+      }
+      return postsArray
+    }))
+    .subscribe(posts => {
+      this.loadedPosts = posts
     })
   }
 }
-
-// 1) Build a reverse pipe (reverses a string)
-// 2) Build a sort pipe to sort by name
