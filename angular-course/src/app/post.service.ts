@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, tap } from "rxjs/operators";
 import { Subject, throwError } from "rxjs";
 
 @Injectable({
@@ -20,7 +20,10 @@ export class PostService {
         this.http
         .post<{ name: string }>(
           'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json',
-          postData
+          postData,
+          {
+            observe: 'response'
+          }
         )
         .subscribe(responseData => {
           console.log(responseData);
@@ -30,9 +33,16 @@ export class PostService {
     }
 
     fetchPosts() {
-        return this.http
+      let searchParams = new HttpParams();
+      searchParams = searchParams.append('print', 'pretty');
+      searchParams = searchParams.append('custom', 'key');
+      return this.http
         .get<{ [key: string]: Post }>(
-          'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json'
+          'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json',
+          {
+            headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+            params: searchParams
+          }
         )
         .pipe(
           map(responseData => {
@@ -52,6 +62,19 @@ export class PostService {
     }
 
     clearPosts() {
-        return this.http.delete('https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json')
+        return this.http.delete(
+          'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json',
+          {
+            observe: 'events'
+          }
+        ).pipe(tap(event => {
+          console.log(event);
+          if (event.type == HttpEventType.Sent) { //Gives granular control if you want to trigger events within the frontend
+            //...
+          };
+          if (event.type == HttpEventType.Response) {
+            console.log(event.body);
+          }
+        }))
     }
 }
