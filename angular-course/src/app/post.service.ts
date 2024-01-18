@@ -41,7 +41,8 @@ export class PostService {
           'https://angular-course-project-659fb-default-rtdb.firebaseio.com/posts.json',
           {
             headers: new HttpHeaders({'Custom-Header': 'Hello'}),
-            params: searchParams
+            params: searchParams,
+            responseType: 'json'
           }
         )
         .pipe(
@@ -73,7 +74,7 @@ export class PostService {
             //...
           };
           if (event.type == HttpEventType.Response) {
-            console.log(event.body);
+            // console.log(event.body);
           }
         }))
     }
