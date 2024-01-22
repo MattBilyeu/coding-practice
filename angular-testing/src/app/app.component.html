@@ -1,7 +1,7 @@
 <h1>Testing Homgepage - App Component HTML</h1>
-<editor [(ngModel)]="editorContent" [init]="editorConfig"></editor>
-<button (click)="submit()">Submit</button>
+<input #templateRef type="text" [(ngModel)]="text">
 
-<div [innerHTML]="sanitizeHTML(editorContent)">
-
+<div>
+    <h1>Test</h1>
+    <h1 [innerHTML]="text"></h1>
 </div>
