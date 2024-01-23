@@ -18,3 +18,5 @@ function longest(s1, s2) {
 //Logging time spent coding in Codewars
 
 //Logging time spent studying angular documentation
+
+//Logging time spent studying angular docs
