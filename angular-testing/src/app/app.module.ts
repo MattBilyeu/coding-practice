@@ -5,10 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
+import { UserService } from './user/user.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -17,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     EditorModule //Needed for TinyMCE
   ],
   providers: [
-    {provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js'} //See "assets" and "scripts" from the angular.json file
+    {provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js'}, //See "assets" and "scripts" from the angular.json file
+    UserService
   ],
   bootstrap: [AppComponent]
 })
