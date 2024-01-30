@@ -1,0 +1,1 @@
+export const selectTest = (state: {test: number}) => state.test;
