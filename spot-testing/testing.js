@@ -1,22 +1,26 @@
-function longest(s1, s2) {
-  const arrayOne = s1.split('');
-  const arrayTwo = s2.split('');
-  const newArray = [];
-  for (let i = 0; i < arrayOne.length; i++) {
-    if (!newArray.includes(arrayOne[i]) && !newArray.includes(arrayOne[i].toLowerCase())) {
-      newArray.push(arrayOne[i])
+let beginning = -Infinity;
+
+let current = 2024;
+
+let failureString;
+
+//Can we arrive at current by adding to negative infinity?
+
+function arriveAtCurrent() {
+  while (beginning !== current) {
+    beginning = beginning + 1;
+    if (beginning === current) {
+      return `We did it!!`
+    } else {
+      if (!failureString) {
+        failureString = 'Not yet...';
+        console.log(failureString)
+      }
     }
-  };
-  for (let i = 0; i < arrayTwo.length; i++) {
-    if (!newArray.includes(arrayTwo[i]) && !newArray.includes(arrayTwo[i].toLowerCase())) {
-      newArray.push(arrayTwo[i])
-    }
-  };
-  return newArray.sort().join('')
+  }
 }
 
-//Logging time spent coding in Codewars
+console.log('Trying to arrive at present from negative infinity ...');
 
-//Logging time spent studying angular documentation
+console.log(arriveAtCurrent());
 
-//Logging time spent studying angular docs
