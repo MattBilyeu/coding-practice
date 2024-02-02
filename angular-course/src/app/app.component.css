@@ -1,4 +1,13 @@
-h1 {
-  text-align: center;
-  margin: 3rem 0;
+.container {
+  margin-top: 30px;
+}
+
+form button {
+  margin-top: 1rem
+}
+
+form input.ng-touched.ng-invalid,
+form select.ng-touched.ng-invalid {
+  background-color: rgb(226, 190, 190);
+  border: red thin solid;
 }

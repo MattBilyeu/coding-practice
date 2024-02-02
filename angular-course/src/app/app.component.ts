@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-
-import { CounterOutputComponent } from './counter-output/counter-output.component';
-import { CounterControlsComponent } from './counter-controls/counter-controls.component';
-import { Store } from '@ngrx/store';
-import { init } from './store/counter.actions';
-import { routes } from './app.routes';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [CounterOutputComponent, CounterControlsComponent, RouterModule],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+  suggestUserName() {
+    const suggestedName = 'Superuser';
+  }
 
-  constructor(private store: Store) {}
-
-  ngOnInit() {
-    this.store.dispatch(init())
+  onSubmit(form: NgForm) {
+    const constructedObj = {
+      test: 'Test Successful!!',
+      name: form.value.username,
+      email: form.value.email,
+      question: form.value.secret
+    };
+    console.log(constructedObj);
   }
 }
