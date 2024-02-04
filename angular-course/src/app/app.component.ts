@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -7,17 +7,35 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('f') signupForm: NgForm;
+  defaultValue: string = 'teacher';
+  answer: string = '';
+  genders = ['male', 'female'];
+  user = {
+    username: '',
+    email: '',
+    secretQuestion: '',
+    answer: '',
+    gender: ''
+  };
+  submitted: boolean = false;
+
   suggestUserName() {
-    const suggestedName = 'Superuser';
+    this.signupForm.form.patchValue({
+      userData: {
+        username: 'Superuser'
+      }
+    })
   }
 
   onSubmit(form: NgForm) {
-    const constructedObj = {
-      test: 'Test Successful!!',
-      name: form.value.username,
-      email: form.value.email,
-      question: form.value.secret
-    };
-    console.log(constructedObj);
+    this.submitted = true;
+    const value = this.signupForm.value;
+    this.user.username = value.userData.username
+    this.user.email = value.userData.email
+    this.user.secretQuestion = value.secret;
+    this.user.answer = value.questionAnswer;
+    this.user.gender = value.gender;
+    form.reset()
   }
 }

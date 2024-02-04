@@ -11,3 +11,7 @@ form select.ng-touched.ng-invalid {
   background-color: rgb(226, 190, 190);
   border: red thin solid;
 }
+
+.form-group {
+  margin-top: 1rem
+}
