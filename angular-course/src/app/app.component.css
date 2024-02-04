@@ -2,16 +2,8 @@
   margin-top: 30px;
 }
 
-form button {
-  margin-top: 1rem
-}
 
-form input.ng-touched.ng-invalid,
-form select.ng-touched.ng-invalid {
-  background-color: rgb(226, 190, 190);
-  border: red thin solid;
-}
-
-.form-group {
-  margin-top: 1rem
+input.ng-touched.ng-invalid {
+  border: thin red solid;
+  background-color: rgb(240, 164, 164)
 }
