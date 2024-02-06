@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
-export interface UserInterface {
-  id: string,
-  name: string
-}
+export type Foo = string;
 
-export enum StatusEnum {
-  ACTIVE = 'active',
-  DRAFT = 'draft',
-  ARCHIVED = 'archived'
-}
+const addId = <T>(obj: T) => {
+  const id = Math.random().toString(16);
+  return {
+    ...obj,
+    id
+  }
+};
+
+const user = {
+  name: 'Jack'
+};
+
+const result = addId<{ name: string }>(user);
 
 @Component({
   selector: 'app-root',
@@ -18,8 +24,5 @@ export enum StatusEnum {
 })
 export class AppComponent {
   title = 'angular-testing';
-  text: string = 'Placeholder';
-  array: (string|number)[];
-
-
+  objArray: Array<Foo>
 }
