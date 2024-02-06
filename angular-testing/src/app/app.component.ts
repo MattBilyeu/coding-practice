@@ -1,28 +1,25 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export type Foo = string;
-
-const addId = <T>(obj: T) => {
-  const id = Math.random().toString(16);
-  return {
-    ...obj,
-    id
-  }
-};
-
-const user = {
-  name: 'Jack'
-};
-
-const result = addId<{ name: string }>(user);
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-testing';
-  objArray: Array<Foo>
+  text: SafeHtml;
+  unsafe: string = `
+  <h1>Title Text<h1>
+  <script>alert('Owned')</script>
+  <p>Paragraph text would go here.</p>
+  `;
+
+  constructor(private domSanitizer: DomSanitizer) {}
+
+  ngOnInit() {
+    this.text = this.domSanitizer.sanitize(SecurityContext.HTML, this.unsafe)
+  }
 }
