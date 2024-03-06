@@ -8,7 +8,7 @@
   </head>
   <body>
 
-  <!-- Spent a lot of time in wordpress development, logging that time as time spent coding.  Those files are housed outside of my repository. -->
+  <!-- Spent a lot of time in wordpress development, logging that time as time spent coding.  Those files are housed outside of my repository. Coded for an hour or so in the course today. -->
 
     <header id="masthead">
     	<h1><a href="#">PHP for WordPress</a></h1>
